@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "Hash": "cgjTWHLn3QQyVY+l/lJpkQbq4t4FfXbBEgDL6h6wmgg=",
+  "Source": "MyFirstApplication",
+  "BasePath": "_content/MyFirstApplication",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "MyFirstApplication/wwwroot",
+      "Source": "MyFirstApplication",
+      "ContentRoot": "/home/thirumurugan/Desktop/DotNet Core/MyFirstApplication/wwwroot/",
+      "BasePath": "_content/MyFirstApplication",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "/home/thirumurugan/Desktop/DotNet Core/MyFirstApplication/wwwroot/Files/EmployeeList.xlsx",
+      "SourceId": "MyFirstApplication",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/thirumurugan/Desktop/DotNet Core/MyFirstApplication/wwwroot/",
+      "BasePath": "_content/MyFirstApplication",
+      "RelativePath": "Files/EmployeeList.xlsx",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/Files/EmployeeList.xlsx"
+    }
+  ]
+}

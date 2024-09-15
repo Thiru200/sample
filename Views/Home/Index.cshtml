@@ -1,0 +1,113 @@
+@using MyFirstApplication;
+@model IEnumerable<UserListModel>
+@{
+    Layout = null; // Ensures no layout is used for this view
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#btnTemplate").on("click", function(event) {
+                event.preventDefault();
+                fnDownloadTemplate();
+            });
+            $('#uploadForm').on('submit', function (e) {
+                e.preventDefault(); // Prevent the default form submission
+                var fileInput = $('#fileInput')[0];
+                if (fileInput.files.length === 0) {
+                    alert('Please select a file.');
+                    return;
+                }
+                var postUrl = '@Url.Action("Index", "Home")'; 
+                var formData = new FormData();
+                formData.append('file', fileInput.files[0]);
+                $.ajax({
+                    url: postUrl, 
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        alert(response);
+                    },
+                    error: function (xhr, status, error) {
+                        alert("Upload failed");
+                    }
+                });
+            });
+        });
+        function fnDownloadTemplate() {
+            alert("Trigger");
+            var postUrl = '@Url.Action("DownloadTemplate", "Home")'; 
+            
+            $.ajax({
+                url: postUrl, // Use the correct variable
+                method: 'GET',
+                xhrFields: {
+                    responseType: 'blob' // Important to handle binary data
+                },
+                success: function(data) {
+                    // Create a link element
+                    var link = document.createElement('a');
+                    var url = window.URL.createObjectURL(data);
+                    link.href = url;
+                    link.download = 'example.xlsx'; // Name of the file to download
+                    document.body.appendChild(link);
+                    link.click();
+                    window.URL.revokeObjectURL(url);
+                },
+                error: function() {
+                    alert('Failed to download file.');
+                }
+            });
+
+            return false;
+        }
+    </script>
+</head>
+<body>
+    <input type="file" name="file" />
+    <hr />
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" name="file" id="fileInput" />
+        <button type="submit">Upload</button>
+    </form>
+    <button type="button" id="btnTemplate">Download Template</button>
+    <hr />
+    @if (Model != null && Model.Any()) // Check if Model is not null and has items
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>EmpCode</th>
+                    <th>EmpName</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.EmpCode</td>
+                        <td>@user.EmpName</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No data available.</p> // Optional message if there is no data
+    }
+    @if (ViewBag.IsValid != null)
+    {
+        <script type="text/javascript">
+            alert('@ViewBag.IsValid'); // Ensure the string is properly enclosed in quotes
+        </script>   
+    }
+</body>
+</html>
