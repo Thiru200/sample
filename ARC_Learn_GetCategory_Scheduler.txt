@@ -1,0 +1,19 @@
+CREATE PROCEDURE [dbo].[ARC_Learn_GetCategory_Scheduler]
+@BatchId Int
+AS
+BEGIN
+ 	BEGIN TRY
+    		DECLARE @SchedulerId Int=0,@ReturnMsg Int=0;
+    
+    		Select @SchedulerId=Scheduler_Id From Arc_Learn_EventBatch Where BatchId=@BatchId;
+	    	IF(Select COUNT(*) FROM ARC_Learn_Scheduler Where Scheduler_Id=@SchedulerId AND Category_Id=6)>0
+	    	BEGIN
+		    SET @ReturnMsg=1;	
+	    	END	
+	END TRY
+	BEGIN CATCH
+
+	END CATCH
+	Select @ReturnMsg[ReturnMsg]
+END	
+
